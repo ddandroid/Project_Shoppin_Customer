@@ -17,6 +17,6 @@ public class Cart {
                 cartSalePriceTotal += productArrayList.get(i).getPriceAsPerSelection();
             }
         }
-        return  cartSalePriceTotal;
+        return cartSalePriceTotal;
     }
 }
