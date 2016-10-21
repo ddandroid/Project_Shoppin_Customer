@@ -401,12 +401,4 @@ public class ProductDetailFragment extends BaseFragment {
             updatePriceAsSelectedOption();
         }
     }
-
-    private void findProductInCartAndUpdateUi() {
-        Product cartProduct = DBAdapter.getProductFromCart(getActivity(), productDetail);
-        if (cartProduct != null) {
-            productDetail.productQuantity = cartProduct.productQuantity;
-            productDetail.productOptionArrayList = cartProduct.productOptionArrayList;
-        }
-    }
 }

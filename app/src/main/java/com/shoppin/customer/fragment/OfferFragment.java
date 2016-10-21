@@ -4,15 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shoppin.customer.R;
-import com.shoppin.customer.activity.NavigationDrawerActivity;
 import com.shoppin.customer.adapter.OfferAdapter;
 import com.shoppin.customer.model.Offer;
+import com.shoppin.customer.network.DataRequest;
+import com.shoppin.customer.network.IWebService;
 import com.shoppin.customer.utils.Utils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,6 +32,9 @@ import butterknife.ButterKnife;
 public class OfferFragment extends BaseFragment {
 
     private static final String TAG = OfferFragment.class.getSimpleName();
+
+    @BindView(R.id.rlvGlobalProgressbar)
+    View rlvGlobalProgressbar;
 
     @BindView(R.id.recyclerListOffer)
     RecyclerView recyclerListOffer;
@@ -44,44 +53,48 @@ public class OfferFragment extends BaseFragment {
         offerAdapter.setOnItemClickListener(new OfferAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Utils.copyTextToClipBoard(getActivity(), offerArrayList.get(position).offer_detail);
+                Utils.copyTextToClipBoard(getActivity(), offerArrayList.get(position).offersDescription);
             }
         });
         recyclerListOffer.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerListOffer.setAdapter(offerAdapter);
 
-        dummyData();
+        getOfferList();
 
         return layoutView;
     }
 
-    private void dummyData() {
+    private void getOfferList() {
+        DataRequest getOfferListDataRequest = new DataRequest(getActivity());
+        getOfferListDataRequest.execute(IWebService.GET_OFFER_LIST, null, new DataRequest.CallBack() {
+            public void onPreExecute() {
+                rlvGlobalProgressbar.setVisibility(View.VISIBLE);
+            }
 
-        Offer objOffer = new Offer("offer_1");
-        offerArrayList.add(objOffer);
+            public void onPostExecute(String response) {
+                try {
+                    rlvGlobalProgressbar.setVisibility(View.GONE);
+                    if (!DataRequest.hasError(getActivity(), response, true)) {
+                        JSONObject dataJObject = DataRequest.getJObjWebdata(response);
+                        Gson gson = new Gson();
+                        ArrayList<Offer> tmpOfferArrayList = gson.fromJson(
+                                dataJObject.getJSONArray(IWebService.KEY_RES_OFFER_LIST).toString(),
+                                new TypeToken<ArrayList<Offer>>() {
+                                }.getType());
 
-        Offer objOffer1 = new Offer("offer_2");
-        offerArrayList.add(objOffer1);
+                        if (tmpOfferArrayList != null) {
+                            offerArrayList.clear();
+                            offerArrayList.addAll(tmpOfferArrayList);
+                            offerAdapter.notifyDataSetChanged();
+                            Log.d(TAG, "offerArrayList = " + offerArrayList.size());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-        Offer objOffer2 = new Offer("offer_3");
-        offerArrayList.add(objOffer2);
-
-        Offer objOffer3 = new Offer("offer_4");
-        offerArrayList.add(objOffer3);
-
-        Offer objOffer4 = new Offer("offer_5");
-        offerArrayList.add(objOffer4);
-
-        offerAdapter.notifyDataSetChanged();
     }
-
-    @Override
-    public void updateFragment() {
-        super.updateFragment();
-        if (getActivity() != null && getActivity() instanceof NavigationDrawerActivity) {
-            ((NavigationDrawerActivity) getActivity()).setToolbarTitle("Offers");
-        }
-    }
-
 
 }

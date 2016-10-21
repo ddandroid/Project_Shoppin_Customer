@@ -25,6 +25,7 @@ import com.shoppin.customer.model.Product;
 import com.shoppin.customer.model.Store;
 import com.shoppin.customer.network.DataRequest;
 import com.shoppin.customer.network.IWebService;
+import com.shoppin.customer.utils.Utils;
 
 import org.json.JSONObject;
 
@@ -51,17 +52,14 @@ public class MyOrderDetailFragment extends BaseFragment {
     @BindView(R.id.txtOrderNumber)
     TextView txtOrderNumber;
 
-    @BindView(R.id.txtOrderDeliveryDate)
-    TextView txtOrderDeliveryDate;
+    @BindView(R.id.txtOrderPlacedOn)
+    TextView txtOrderPlacedOn;
 
-    @BindView(R.id.txtOrderDeliveryTime)
-    TextView txtOrderDeliveryTime;
+    @BindView(R.id.txtOrderDeliveryDateTime)
+    TextView txtOrderDeliveryDateTime;
 
-    @BindView(R.id.txtOrderCompleteDate)
-    TextView txtOrderCompleteDate;
-
-    @BindView(R.id.txtOrderCompleteTime)
-    TextView txtOrderCompleteTime;
+    @BindView(R.id.txtOrderCompleteDateTime)
+    TextView txtOrderCompleteDateTime;
 
     @BindView(R.id.txtCustomerName)
     TextView txtCustomerName;
@@ -261,11 +259,17 @@ public class MyOrderDetailFragment extends BaseFragment {
     }
 
     private void setOrder(Order order) {
-        txtOrderNumber.setText(order.orderNumber);
-        txtOrderDeliveryDate.setText(order.orderDeliveryDate);
-        txtOrderDeliveryTime.setText(order.orderDeliveryTime);
-        txtOrderCompleteDate.setText(order.orderCompleteDate);
-        txtOrderCompleteTime.setText(order.orderCompleteTime);
+        txtOrderNumber.setText("Order : " + order.orderNumber);
+        txtOrderPlacedOn.setText("Placed : " + order.orderDeliveryDate);
+        txtOrderDeliveryDateTime.setText("Deliver : " + order.orderDeliveryDate
+                + " " + order.orderDeliveryTime);
+        if (!Utils.isNullOrEmpty(order.orderCompleteDate)) {
+            txtOrderCompleteDateTime.setVisibility(View.VISIBLE);
+            txtOrderCompleteDateTime.setText("Completed : " + order.orderCompleteDate
+                    + " " + order.orderCompleteTime);
+        } else {
+            txtOrderCompleteDateTime.setVisibility(View.GONE);
+        }
         txtOrderTotal.setText("$ " + order.total);
         txtOrderItemCount.setText(order.itemCount);
     }

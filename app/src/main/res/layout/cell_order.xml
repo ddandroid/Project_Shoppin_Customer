@@ -50,31 +50,62 @@
             android:textSize="@dimen/font_size_edittext" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <!--    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_tiny">
+
+            <TextView
+                android:id="@+id/txtOrderItemCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_edittext" />
+
+            <TextView
+                android:id="@+id/txtOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size_edittext" />
+
+        </RelativeLayout>-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_tiny">
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_tiny"
+        android:weightSum="10">
 
         <TextView
             android:id="@+id/txtOrderItemCount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_weight="5"
+            android:gravity="left"
             android:textColor="@color/black"
             android:textSize="@dimen/font_size_edittext" />
 
         <TextView
             android:id="@+id/txtOrderStatus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/black"
+            android:layout_weight="5"
+            android:background="@drawable/order_status_list_placed"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_size_edittext" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_tiny"
         android:background="@color/gray_50" />
 </LinearLayout>

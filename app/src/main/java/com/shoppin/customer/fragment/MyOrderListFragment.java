@@ -71,6 +71,7 @@ public class MyOrderListFragment extends BaseFragment {
             JSONObject myOrderParam = new JSONObject();
             myOrderParam.put(IWebService.KEY_REQ_CUSTOMER_ID,
                     DBAdapter.getMapKeyValueString(getActivity(), IDatabase.IMap.CUSTOMER_ID));
+            myOrderParam.put(IWebService.KEY_REQ_PAGE_NUMBER, 0);
             DataRequest getSuburbsDataRequest = new DataRequest(getActivity());
             getSuburbsDataRequest.execute(IWebService.GET_MY_ORDERS, myOrderParam.toString(), new DataRequest.CallBack() {
                 public void onPreExecute() {

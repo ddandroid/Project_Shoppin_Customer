@@ -13,7 +13,7 @@ public class ProductOption implements Serializable {
     @SerializedName("option_id")
     public String optionId;
 
-    @SerializedName("name")
+    @SerializedName("option_name")
     public String optionName;
 
     @SerializedName("option_value")

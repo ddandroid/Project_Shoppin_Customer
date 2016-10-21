@@ -7,11 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shoppin.customer.R;
 import com.shoppin.customer.activity.CheckOutActivity;
 import com.shoppin.customer.activity.NavigationDrawerActivity;
@@ -20,7 +23,13 @@ import com.shoppin.customer.adapter.CartProductListAdapter;
 import com.shoppin.customer.database.DBAdapter;
 import com.shoppin.customer.database.IDatabase;
 import com.shoppin.customer.model.Product;
+import com.shoppin.customer.network.DataRequest;
+import com.shoppin.customer.network.IWebService;
 import com.shoppin.customer.utils.Cart;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -53,7 +62,7 @@ public class CartFragment extends BaseFragment {
         ButterKnife.bind(this, layoutView);
 
         productArrayList = new ArrayList<>();
-        productArrayList.addAll(DBAdapter.getAllProductFromCart(getActivity()));
+//        productArrayList.addAll(DBAdapter.getAllProductFromCart(getActivity()));
         productListAdapter = new CartProductListAdapter(getActivity(), productArrayList);
         productListAdapter.setOnItemClickListener(new CartProductListAdapter.OnItemClickListener() {
             @Override
@@ -75,8 +84,7 @@ public class CartFragment extends BaseFragment {
             public void onCartChange(View view, int position, boolean isProductRemove) {
                 if (isProductRemove) {
                     if (productArrayList != null) {
-                        productArrayList.clear();
-                        productArrayList.addAll(DBAdapter.getAllProductFromCart(getActivity()));
+                        productArrayList.remove(position);
                         productListAdapter.notifyDataSetChanged();
                     }
                 }
@@ -87,8 +95,7 @@ public class CartFragment extends BaseFragment {
         recyclerListProduct.setAdapter(productListAdapter);
 
 
-        updateCartTotal();
-
+        getCartProductDetail();
 
         return layoutView;
     }
@@ -97,6 +104,7 @@ public class CartFragment extends BaseFragment {
     void checkOut() {
         if (DBAdapter.getMapKeyValueBoolean(getActivity(), IDatabase.IMap.IS_LOGIN)) {
             Intent intent = new Intent(getActivity(), CheckOutActivity.class);
+            intent.putExtra(CheckOutActivity.KEY_BUNDLE_PRODUCT_LIST, productArrayList);
             startActivity(intent);
         } else {
             Intent intent = new Intent(getActivity(), SigninActivity.class);
@@ -126,4 +134,56 @@ public class CartFragment extends BaseFragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
+
+    private void getCartProductDetail() {
+        DataRequest getSuburbsDataRequest = new DataRequest(getActivity());
+
+        JSONObject productJObject = new JSONObject();
+        JSONArray productIdJArray = new JSONArray();
+        ArrayList<Integer> productIdArrayList = new ArrayList<>();
+        productIdArrayList.addAll(DBAdapter.getAllProductIdFromCart(getActivity()));
+        for (int i = 0; i < productIdArrayList.size(); i++) {
+            productIdJArray.put(productIdArrayList.get(i));
+        }
+        try {
+            productJObject.put(IWebService.KEY_REQ_PRODUCT_LIST, productIdJArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        getSuburbsDataRequest.execute(IWebService.GET_CART_PRODUCT_DETAIL, productJObject.toString(), new DataRequest.CallBack() {
+            public void onPreExecute() {
+                rlvGlobalProgressbar.setVisibility(View.VISIBLE);
+            }
+
+            public void onPostExecute(String response) {
+                try {
+                    rlvGlobalProgressbar.setVisibility(View.GONE);
+                    if (!DataRequest.hasError(getActivity(), response, true)) {
+                        Gson gson = new Gson();
+                        JSONObject dataJObject = DataRequest.getJObjWebdata(response);
+
+                        ArrayList<Product> tmpProductArrayList = gson.fromJson(
+                                dataJObject.getJSONArray(IWebService.KEY_RES_PRODUCT_LIST).toString(),
+                                new TypeToken<ArrayList<Product>>() {
+                                }.getType());
+                        if (tmpProductArrayList != null) {
+                            Log.e(TAG, "tmpProductArrayList.size = " + tmpProductArrayList.size());
+//                            productArrayList.addAll(tmpProductArrayList);
+//                            DBAdapter.setProductParams(getActivity(), productArrayList);
+                            productArrayList.addAll(DBAdapter.setProductParams(getActivity(), tmpProductArrayList));
+                            Log.e(TAG, "productArrayList.size = " + productArrayList.size());
+                            productListAdapter.notifyDataSetChanged();
+                        }
+
+                        updateCartTotal();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
 }

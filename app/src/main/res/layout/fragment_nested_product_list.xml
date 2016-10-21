@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerListProduct"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_tiny" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerListProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_tiny" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/progressbar" />
 </RelativeLayout>

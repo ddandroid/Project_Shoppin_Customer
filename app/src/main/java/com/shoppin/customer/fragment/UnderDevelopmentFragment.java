@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.shoppin.customer.R;
 import com.shoppin.customer.activity.NavigationDrawerActivity;
-import com.shoppin.customer.activity.SignupActivity;
 
 import butterknife.ButterKnife;
 
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class UnderDevelopmentFragment extends BaseFragment {
 
-    private static final String TAG = SignupActivity.class.getSimpleName();
+    private static final String TAG = UnderDevelopmentFragment.class.getSimpleName();
 
 
     @Nullable

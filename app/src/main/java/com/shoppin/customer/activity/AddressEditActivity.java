@@ -222,6 +222,7 @@ public class AddressEditActivity extends AppCompatActivity {
         JSONObject deleteParams = new JSONObject();
         try {
             deleteParams.put(IWebService.KEY_REQ_ADDRESS_ID, address.addressId);
+            deleteParams.put(IWebService.KEY_REQ_CUSTOMER_ID, address.addressId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

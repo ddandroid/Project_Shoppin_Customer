@@ -150,9 +150,9 @@ public class HomeFragment extends BaseFragment {
         offerArrayList = new ArrayList<>();
         offerHomeAdapter = new ImageSlideAdapter(getActivity(), offerArrayList, offerViewPagerIndicator);
         offerViewPager.setAdapter(offerHomeAdapter);
-        offerViewPager.setInterval(3000);
+        offerViewPager.setInterval(5000);
         offerViewPager.setCurrentItem(0);
-        offerViewPager.startAutoScroll(3000);
+        offerViewPager.startAutoScroll(5000);
         offerViewPager.setCycle(true);
         offerViewPager.setStopScrollWhenTouch(true);
         offerViewPager.setSlideBorderMode(SLIDE_BORDER_MODE_CYCLE);

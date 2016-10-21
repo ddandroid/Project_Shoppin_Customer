@@ -23,6 +23,7 @@ import com.shoppin.customer.activity.NavigationDrawerActivity;
 import com.shoppin.customer.activity.SigninActivity;
 import com.shoppin.customer.adapter.AddressAdapter;
 import com.shoppin.customer.database.DBAdapter;
+import com.shoppin.customer.database.IDatabase;
 import com.shoppin.customer.model.Address;
 import com.shoppin.customer.model.Suburb;
 import com.shoppin.customer.network.DataRequest;
@@ -336,6 +337,10 @@ public class MyAccountFragment extends BaseFragment {
                 Log.d(TAG, "response = " + response);
                 if (!DataRequest.hasError(getActivity(), response, true)) {
                     try {
+                        DBAdapter.insertUpdateMap(getActivity(), IDatabase.IMap.SUBURB_ID,
+                                selectedSuburb.suburb_id);
+                        DBAdapter.insertUpdateMap(getActivity(), IDatabase.IMap.SUBURB_NAME,
+                                selectedSuburb.suburb_name);
                         JSONObject responseJObject = new JSONObject(response);
                         Utils.showToastShort(getActivity(), responseJObject.getString(IWebService.KEY_RES_MESSAGE));
                     } catch (JSONException e) {

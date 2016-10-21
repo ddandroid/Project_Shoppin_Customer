@@ -25,6 +25,7 @@ import com.shoppin.customer.adapter.NavigationDrawerMenuAdapter;
 import com.shoppin.customer.database.DBAdapter;
 import com.shoppin.customer.fragment.BaseFragment;
 import com.shoppin.customer.fragment.CartFragment;
+import com.shoppin.customer.fragment.ChangeSuburbFragment;
 import com.shoppin.customer.fragment.HomeFragment;
 import com.shoppin.customer.fragment.IUpdateFragment;
 import com.shoppin.customer.fragment.MyAccountFragment;
@@ -33,7 +34,6 @@ import com.shoppin.customer.fragment.OfferFragment;
 import com.shoppin.customer.fragment.StoreListFragment;
 import com.shoppin.customer.fragment.UnderDevelopmentFragment;
 import com.shoppin.customer.model.NavigationDrawerMenu;
-import com.shoppin.customer.model.Product;
 import com.shoppin.customer.utils.IConstants.IPushNotification;
 import com.shoppin.customer.utils.Utils;
 
@@ -50,7 +50,7 @@ import static com.shoppin.customer.utils.IConstants.IDrawerMenu;
 
 public class NavigationDrawerActivity extends BaseActivity {
 
-    private static final String TAG = SignupActivity.class.getSimpleName();
+    private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
 
     @BindView(R.id.txtFragmentTitle)
     public TextView txtFragmentTitle;
@@ -111,7 +111,6 @@ public class NavigationDrawerActivity extends BaseActivity {
 
                     case IDrawerMenu.LOGIN_SIGNUP_ID:
                         login();
-                        toggleLeftDrawer();
                         break;
 
                     case IDrawerMenu.WELCOME_ID:
@@ -119,7 +118,8 @@ public class NavigationDrawerActivity extends BaseActivity {
                         break;
 
                     case IDrawerMenu.CHANGE_SUBURB_ID:
-                        newContent = new UnderDevelopmentFragment();
+//                        newContent = new ChangeSuburbFragment();
+                        new ChangeSuburbFragment().show(getSupportFragmentManager(), "Change Suburb");
                         break;
 
                     case IDrawerMenu.NEAR_BY_STORES_ID:
@@ -147,7 +147,9 @@ public class NavigationDrawerActivity extends BaseActivity {
             }
         }
     };
-
+    /**
+     * To change suburb
+     */
     private ActionBarDrawerToggle drawerToggle;
     private ArrayList<NavigationDrawerMenu> navigationDrawerMenuArrayList;
     private NavigationDrawerMenuAdapter drawerMenuAdapter;
@@ -345,6 +347,7 @@ public class NavigationDrawerActivity extends BaseActivity {
         FragmentTransaction ft = manager.beginTransaction();
 //        ft.setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit, R.anim.enter,
 //                R.anim.exit);
+        ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         Fragment tmpMyFragment = manager.findFragmentById(R.id.contentFrame);
         if (tmpMyFragment != null) {
             ft.hide(tmpMyFragment);
@@ -411,7 +414,7 @@ public class NavigationDrawerActivity extends BaseActivity {
 
     public int updateCartCount() {
         int cartCount = 0;
-        ArrayList<Product> productArrayList = DBAdapter.getAllProductFromCart(NavigationDrawerActivity.this);
+        ArrayList<Integer> productArrayList = DBAdapter.getAllProductIdFromCart(NavigationDrawerActivity.this);
         if (productArrayList != null) {
             cartCount = productArrayList.size();
         }

@@ -12,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -20,7 +19,6 @@ import com.shoppin.customer.R;
 import com.shoppin.customer.model.Suburb;
 
 import java.util.ArrayList;
-
 
 public class Utils {
     private static final String TAG = Utils.class.getSimpleName();
@@ -116,6 +114,22 @@ public class Utils {
     public static void showToastShort(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
+//    public static void showToastShort(Context context, String message) {
+////        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+//        if (context instanceof Activity) {
+//            final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) ((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content)).getChildAt(0);
+//            Snackbar.make(viewGroup, message, Snackbar.LENGTH_LONG)
+//                    .setAction("CLOSE", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//
+//                        }
+//                    })
+//                    .setActionTextColor(context.getResources().getColor(android.R.color.holo_red_light))
+//                    .show();
+//        }
+//    }
 
     public static void showToastLong(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();

@@ -52,6 +52,10 @@ public interface IWebService {
 
     String NEAR_BY_STORES = MAIN_URL + "store/NearByStores";
 
+    String GET_CART_PRODUCT_DETAIL = MAIN_URL + "order/GetCartProductDetail";
+
+    String GET_OFFER_LIST = MAIN_URL + "offer/GetOfferList";
+
     /**
      * Request Params
      */
@@ -62,7 +66,7 @@ public interface IWebService {
     String KEY_REQ_CUSTOMER_DEVICE_TYPE = "customer_device_type";
     String KEY_REQ_CUSTOMER_DEVICE_TOKEN = "customer_device_token";
     String KEY_REQ_CUSTOMER_DEVICE_ID = "customer_device_id";
-    String KEY_REQ_CUSTOMER_NAME = "scustomer_name";
+    String KEY_REQ_CUSTOMER_NAME = "customer_name";
     String KEY_REQ_CUSTOMER_STREET = "customer_address_line1";
     String KEY_REQ_CUSTOMER_SUBURB_ID = "customer_suburb_id";
     String KEY_REQ_CUSTOMER_POSTCODE = "customer_zip";
@@ -92,13 +96,14 @@ public interface IWebService {
     String KEY_REQ_PRODUCT_SALEPRICE = "product_saleprice";
     String KEY_REQ_OPTION_LIST = "option_list";
     String KEY_REQ_OPTION_ID = "option_id";
-    String KEY_REQ_NAME = "name";
+    String KEY_REQ_OPTION_NAME = "option_name";
     String KEY_REQ_OPTION_VALUE_ID = "option_value_id";
-    String KEY_REQ_OPTION_VALUE = "option_value";
+    String KEY_REQ_OPTION_VALUE_NAME = "option_value_name";
     String KEY_REQ_COUPON_CODE = "coupon_code";
     String KEY_REQ_ORDER_AMOUNT = "order_amount";
     String KEY_REQ_ORDER_NUMBER = "order_number";
     String KEY_REQ_SUBURB_ID = "customer_suburb_id";
+    String KEY_REQ_PAGE_NUMBER = "page_no";
 
     /**
      * Response Params

@@ -216,6 +216,8 @@ public class SigninActivity extends AppCompatActivity {
                             selectedSuburb.suburb_name);
                     DBAdapter.setMapKeyValueBoolean(SigninActivity.this, IDatabase.IMap.IS_LOGIN, false);
 
+                    alertDialog.dismiss();
+
                     Intent intent = new Intent(SigninActivity.this, NavigationDrawerActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

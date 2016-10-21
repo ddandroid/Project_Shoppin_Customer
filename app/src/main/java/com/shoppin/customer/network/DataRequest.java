@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.shoppin.customer.R;
+import com.shoppin.customer.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +21,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.shoppin.customer.utils.Utils.showAlert;
 
 /**
  * Created by ubuntu on 10/8/16.
@@ -48,7 +47,7 @@ public class DataRequest {
                                    boolean isShowAlert) {
         try {
             Log.e(TAG, "checkError response = " + response);
-            if (response != null && !response.isEmpty()) {
+            if (!Utils.isNullOrEmpty(response)) {
                 Object json = new JSONTokener(response).nextValue();
                 if (json instanceof JSONObject) {
                     JSONObject mainJObject = ((JSONObject) json);
@@ -56,7 +55,7 @@ public class DataRequest {
                     if (mainJObject.has(IWebService.KEY_RES_SUCCESS)) {
                         if (!mainJObject.getBoolean(IWebService.KEY_RES_SUCCESS)) {
                             if (isShowAlert) {
-                                showAlert(
+                                Utils.showAlert(
                                         context,
                                         null,
                                         mainJObject
@@ -70,10 +69,23 @@ public class DataRequest {
                         return false;
                     }
                 }
+                // in case of server returns non json string
+                else {
+                    try {
+                        if (isShowAlert) {
+                            Utils.showAlert(context,
+                                    null,
+                                    context.getString(R.string.error_technical_problem));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
             } else {
                 try {
                     if (isShowAlert) {
-                        showAlert(context,
+                        Utils.showAlert(context,
                                 null,
                                 context.getString(R.string.error_technical_problem));
                     }

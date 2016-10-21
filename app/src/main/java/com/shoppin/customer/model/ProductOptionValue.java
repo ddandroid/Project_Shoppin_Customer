@@ -12,10 +12,10 @@ public class ProductOptionValue implements Serializable {
     @SerializedName("option_value_id")
     public String optionValueId;
 
-    @SerializedName("name")
+    @SerializedName("option_value_name")
     public String optionValueName;
 
-    @SerializedName("price")
+    @SerializedName("option_value_price")
     public double optionValuePrice;
 
     public boolean isSelected;

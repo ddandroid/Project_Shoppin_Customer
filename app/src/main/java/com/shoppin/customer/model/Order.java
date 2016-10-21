@@ -10,6 +10,9 @@ public class Order {
     @SerializedName("order_number")
     public String orderNumber;
 
+    @SerializedName("ordered_on")
+    public String orderPlacedOn;
+
     @SerializedName("delivery_date")
     public String orderDeliveryDate;
 

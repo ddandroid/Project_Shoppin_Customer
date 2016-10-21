@@ -33,7 +33,6 @@ import com.shoppin.customer.model.Product;
 import com.shoppin.customer.model.Store;
 import com.shoppin.customer.network.DataRequest;
 import com.shoppin.customer.network.IWebService;
-import com.shoppin.customer.utils.Cart;
 import com.shoppin.customer.utils.Utils;
 
 import org.json.JSONArray;
@@ -47,6 +46,7 @@ import butterknife.OnClick;
 
 public class CheckOutActivity extends AppCompatActivity {
     public static final int REQUEST_PAYMENT = 1001;
+    public static final String KEY_BUNDLE_PRODUCT_LIST = "product_list";
     public static final String RESPONSE_PAYMENT_ID = "payment_id";
     public static final String KEY_ADDRESS = "address";
 
@@ -118,11 +118,18 @@ public class CheckOutActivity extends AppCompatActivity {
     private double allProductPrice = 0.0;
     private double totalPrice = 0.0;
 
+    private  ArrayList<Product> productArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
         ButterKnife.bind(this);
+
+        productArrayList = new ArrayList<>();
+        if(getIntent()!=null && getIntent().hasExtra(KEY_BUNDLE_PRODUCT_LIST)) {
+            productArrayList.addAll( (ArrayList<Product>) getIntent().getSerializableExtra(KEY_BUNDLE_PRODUCT_LIST));
+        }
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -305,7 +312,7 @@ public class CheckOutActivity extends AppCompatActivity {
         double couponPrice = 0.0;
         totalPrice = 0.0;
 
-        allProductPrice = Cart.getCartSalePriceTotal(DBAdapter.getAllProductFromCart(CheckOutActivity.this));
+//        allProductPrice = Cart.getCartSalePriceTotal(DBAdapter.getAllProductFromCart(CheckOutActivity.this));
 
         couponPrice = currentCoupon.discountAmount;
 
@@ -452,6 +459,7 @@ public class CheckOutActivity extends AppCompatActivity {
              * Order json object
              */
             JSONObject orderJObject = new JSONObject();
+
             orderJObject.put(IWebService.KEY_REQ_CUSTOMER_ID,
                     DBAdapter.getMapKeyValueString(CheckOutActivity.this, IMap.CUSTOMER_ID));
             orderJObject.put(IWebService.KEY_REQ_ORDER_SUBURB_ID,
@@ -459,6 +467,7 @@ public class CheckOutActivity extends AppCompatActivity {
             orderJObject.put(IWebService.KEY_REQ_CUSTOMER_BILLING_ID, currentAddress.addressId);
             orderJObject.put(IWebService.KEY_REQ_CUSTOMER_SHIPPING_ID, currentAddress.addressId);
 
+            // Set slot id
             String slotId = "0";
             for (int indexDate = 0; indexDate < checkoutDateArrayList.size(); indexDate++) {
                 if (checkoutDateArrayList.get(indexDate).isSelected) {
@@ -471,7 +480,7 @@ public class CheckOutActivity extends AppCompatActivity {
             }
             orderJObject.put(IWebService.KEY_REQ_ORDER_SLOT_ID, slotId);
 
-
+            // Set store id
             int storeId = 0;
             if (storeArrayList != null) {
                 for (int i = 0; i < storeArrayList.size(); i++) {
@@ -508,7 +517,7 @@ public class CheckOutActivity extends AppCompatActivity {
              */
             JSONArray productJArray = new JSONArray();
 
-            ArrayList<Product> productArrayList = DBAdapter.getAllProductFromCart(CheckOutActivity.this);
+//            ArrayList<Product> productArrayList = DBAdapter.getAllProductFromCart(CheckOutActivity.this);
             for (int indexProduct = 0; indexProduct < productArrayList.size(); indexProduct++) {
                 Product product = productArrayList.get(indexProduct);
                 JSONObject productJObject = new JSONObject();
@@ -528,10 +537,10 @@ public class CheckOutActivity extends AppCompatActivity {
                             if (product.productOptionArrayList.get(indexOption).productOptionValueArrayList.get(indexValue).isSelected) {
                                 optionJObject.put(IWebService.KEY_REQ_PRODUCT_ID, product.productId);
                                 optionJObject.put(IWebService.KEY_REQ_OPTION_ID, product.productOptionArrayList.get(indexOption).optionId);
-                                optionJObject.put(IWebService.KEY_REQ_NAME, product.productOptionArrayList.get(indexOption).optionName);
+                                optionJObject.put(IWebService.KEY_REQ_OPTION_NAME, product.productOptionArrayList.get(indexOption).optionName);
                                 optionJObject.put(IWebService.KEY_REQ_OPTION_VALUE_ID,
                                         product.productOptionArrayList.get(indexOption).productOptionValueArrayList.get(indexValue).optionValueId);
-                                optionJObject.put(IWebService.KEY_REQ_OPTION_VALUE,
+                                optionJObject.put(IWebService.KEY_REQ_OPTION_VALUE_NAME,
                                         product.productOptionArrayList.get(indexOption).productOptionValueArrayList.get(indexValue).optionValueName);
                                 optionJArray.put(optionJObject);
                                 break;

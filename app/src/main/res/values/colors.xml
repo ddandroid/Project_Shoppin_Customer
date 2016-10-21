@@ -31,4 +31,16 @@
     <color name="order_status_purchasing">#9cdb52</color>
     <color name="order_status_shipping">#8fd044</color>
     <color name="order_status_completed">#80cc28</color>
+
+    <color name="order_status_list_placed">#d4d4d4</color>
+    <color name="order_status_list_accepted">#26c954</color>
+    <color name="order_status_list_rejected">#ff0000</color>
+    <color name="order_status_list_purchasing">#1ab1d1</color>
+    <color name="order_status_list_shipping">#e7c00c</color>
+    <color name="order_status_list_completed">#80cc28</color>
+    <color name="order_status_list_onhold">#361eea</color>
+    <color name="order_status_list_cancelled">#ff0000</color>
+
+
+    <color name="card_bg">#EDEDED</color>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.shoppin.customer.R;
 import com.shoppin.customer.model.Order;
+import com.shoppin.customer.network.IWebService;
 
 import java.util.ArrayList;
 
@@ -45,12 +46,13 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
     public void onBindViewHolder(final MyOrderAdapter.MyViewHolder holder, final int position) {
         Log.e(TAG, "productId = " + orderArrayList.get(position).orderDeliveryDate);
 
+        holder.txtOrderNumber.setText("Order :" + orderArrayList.get(position).orderNumber);
         holder.txtOrderDeliveryDate.setText(orderArrayList.get(position).orderDeliveryDate);
         holder.txtOrderDeliveryTime.setText(orderArrayList.get(position).orderDeliveryTime);
-        holder.txtOrderNumber.setText(orderArrayList.get(position).orderNumber);
         holder.txtOrderTotal.setText("$ " + orderArrayList.get(position).total);
         holder.txtOrderItemCount.setText(orderArrayList.get(position).itemCount);
         holder.txtOrderStatus.setText(orderArrayList.get(position).statusLabel);
+        setOrderStatus(orderArrayList.get(position).status, holder.txtOrderStatus);
 
         holder.cellRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +62,31 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
                 }
             }
         });
+
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.itemClickListener = mItemClickListener;
+    }
+
+    private void setOrderStatus(int orderStatus, TextView txtOrderStatus) {
+        if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_PLACED) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_placed);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_ACCEPTED) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_accepted);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_REJECTED) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_rejected);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_PURCHASING) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_purchasing);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_SHIPPING) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_shipping);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_COMPLETED) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_completed);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_ON_HOLD) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_onhold);
+        } else if (orderStatus == IWebService.KEY_RES_ORDER_STATUS_CANCELLED) {
+            txtOrderStatus.setBackgroundResource(R.drawable.order_status_list_cancelled);
+        }
     }
 
     public interface OnItemClickListener {
@@ -97,6 +120,5 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
             ButterKnife.bind(this, itemView);
         }
     }
-
 
 }

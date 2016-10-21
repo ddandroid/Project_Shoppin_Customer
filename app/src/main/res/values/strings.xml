@@ -64,7 +64,7 @@
     <string name="edittext_hint_town">Town</string>
     <string name="edittext_hint_postcode">Postcode</string>
     <string name="edittext_hint_confirm_password">Confirm Password</string>
-    <string name="edittext_hint_coupon_code">Coupon Code</string>
+    <string name="edittext_hint_coupon_code">Enter Coupon Code</string>
     <string name="edittext_hint_credit_card_number">1234567812345678</string>
     <string name="edittext_hint_credit_card_expire_date">MM/YY</string>
     <string name="edittext_hint_credit_card_cvv">123</string>
@@ -80,6 +80,7 @@
     <!--dialog -->
     <string name="dialog_title_guest">Guest Login</string>
     <string name="dialog_title_address">Address</string>
+    <string name="dialog_title_change_suburb">Change Suburb</string>
 
     <!-- Menu Action -->
     <string name="action_search_product">Search</string>

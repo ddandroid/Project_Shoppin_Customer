@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/card_bg"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -96,6 +96,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_small" />
 
+                <!--card_view:cardBackgroundColor="@color/card_bg"-->
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +118,8 @@
                             android:layout_marginLeft="@dimen/margin_tiny"
                             android:layout_marginRight="@dimen/margin_small"
                             android:layout_weight="7"
-                            android:background="@drawable/bg_edittext_transparent"
+                            android:background="@null"
+                            android:cursorVisible="true"
                             android:hint="@string/edittext_hint_coupon_code"
                             android:maxLines="1"
                             android:padding="@dimen/margin_tiny"
@@ -154,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_small"
-                        android:background="@drawable/bg_option_dropdown"
+                        android:background="@drawable/bg_option_dropdown_transparent"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:padding="@dimen/margin_tiny"

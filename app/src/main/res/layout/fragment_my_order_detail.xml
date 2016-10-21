@@ -44,68 +44,90 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 card_view:cardCornerRadius="@dimen/margin_tiny">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/margin_small">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtOrderNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_tiny"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
 
-                        <TextView
-                            android:id="@+id/txtOrderNumber"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-
-                        <TextView
-                            android:id="@+id/txtOrderDeliveryDate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtOrderPlacedOn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_tiny"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
 
-                        <TextView
-                            android:id="@+id/txtCustomerName"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
+                    <TextView
+                        android:id="@+id/txtOrderDeliveryDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_tiny"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
 
-                        <TextView
-                            android:id="@+id/txtOrderDeliveryTime"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtOrderCompleteDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_tiny"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
+
+                    <TextView
+                        android:id="@+id/txtOrderTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_tiny"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
+
+                    <TextView
+                        android:id="@+id/txtOrderItemCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_tiny"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                card_view:cardCornerRadius="@dimen/margin_tiny">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtCustomerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_tiny"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/font_size_edittext" />
 
                     <TextView
                         android:id="@+id/txtOrderAddress"
@@ -130,66 +152,17 @@
                         android:layout_margin="@dimen/margin_tiny"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/font_size_edittext" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/margin_tiny"
-                        android:weightSum="2">
-
-                        <TextView
-                            android:id="@+id/txtOrderTotal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-
-                        <TextView
-                            android:id="@+id/txtOrderCompleteDate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/margin_tiny"
-                        android:weightSum="2">
-
-                        <TextView
-                            android:id="@+id/txtOrderItemCount"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-
-                        <TextView
-                            android:id="@+id/txtOrderCompleteTime"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:textColor="@color/text_black"
-                            android:textSize="@dimen/font_size_edittext" />
-
-                    </LinearLayout>
                 </LinearLayout>
+
             </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:id="@+id/lltPreferredStore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -214,6 +187,7 @@
                 android:id="@+id/lltOrderStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
@@ -339,7 +313,9 @@
                 android:id="@+id/txtOrderHoldCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:textColor="@color/red"
                 android:textSize="@dimen/font_size_edittext" />
 
@@ -347,7 +323,7 @@
                 android:id="@+id/recyclerListProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_tiny"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:scrollbars="none" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

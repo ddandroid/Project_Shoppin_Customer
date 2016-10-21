@@ -46,7 +46,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final OfferAdapter.MyViewHolder holder, final int position) {
-        holder.txtOffers.setText(offerArrayList.get(position).offer_detail);
+        holder.txtOffers.setText(offerArrayList.get(position).offersDescription);
         holder.cellRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

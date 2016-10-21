@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <layer-list>
+            <item>
+                <shape>
+                    <gradient android:angle="90" android:endColor="@color/order_status_list_completed" android:startColor="@color/order_status_list_completed" android:type="linear" />
+
+                    <stroke android:width="2dp" android:color="@color/white" />
+
+                    <corners android:radius="@dimen/margin_large" />
+
+                    <!--<padding android:bottom="@dimen/margin_small" android:left="@dimen/margin_small" android:right="@dimen/margin_small" android:top="@dimen/margin_small" />-->
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+</selector>
